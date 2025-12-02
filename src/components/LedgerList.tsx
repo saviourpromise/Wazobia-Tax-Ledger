@@ -6,7 +6,7 @@ export default function LedgerList(){
   const { entries, clearAll } = useLedger();
   const { t } = useTranslation();
   return (
-    <div className="mt-6 p-4 bg-white rounded-xl shadow-lg max-w-md mx-auto">
+    <div className="mt-6 p-4 bg-white rounded-xl shadow-sm w-full mx-auto">
       <div className="flex justify-between items-center mb-4 pb-2 border-b border-gray-200">
         <h2 className="text-xl font-semibold text-gray-800">Ledger</h2>
         <button 

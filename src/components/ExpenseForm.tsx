@@ -1,13 +1,22 @@
 import { useState } from "react";
 import { useLedger } from "../context/LedgerContext";
 import { useTranslation } from "react-i18next";
+import { FaKeyboard, FaCamera, FaMicrophone } from "react-icons/fa";
 
-export default function ExpenseForm({ onOpenOCR, onStartVoice }: { onOpenOCR: ()=>void; onStartVoice: ()=>void }) {
+export default function ExpenseForm({
+  onOpenOCR,
+  onStartVoice,
+}: {
+  onOpenOCR: () => void;
+  onStartVoice: () => void;
+}) {
   const { addEntry } = useLedger();
   const { t } = useTranslation();
 
-  const [amount, setAmount] = useState<number|''>('');
-  const [date, setDate] = useState<string>(new Date().toISOString().slice(0,10));
+  const [amount, setAmount] = useState<number | "">("");
+  const [date, setDate] = useState<string>(
+    new Date().toISOString().slice(0, 10)
+  );
   const [vendor, setVendor] = useState("");
   const [category, setCategory] = useState("food");
 
@@ -16,49 +25,75 @@ export default function ExpenseForm({ onOpenOCR, onStartVoice }: { onOpenOCR: ()
       alert("Enter valid amount");
       return;
     }
-    await addEntry({ amount: Number(amount), date, vendor, category, method: "manual" });
-    setAmount(''); setVendor('');
+
+    await addEntry({
+      amount: Number(amount),
+      date,
+      vendor,
+      category,
+      method: "manual",
+    });
+
+    setAmount("");
+    setVendor("");
   };
 
-  const inputClass = "w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1D4ED8] focus:border-transparent transition-all duration-200";
-  const labelClass = "block text-sm font-medium text-gray-700 mb-1";
-  const buttonPrimaryClass = "flex-1 py-3 px-4 rounded-lg bg-[#1D4ED8] text-white font-semibold hover:bg-[#1E40AF] transition-colors duration-200 shadow-md";
-  const buttonSecondaryClass = "flex-1 py-3 px-4 rounded-lg border border-gray-300 text-gray-800 font-semibold hover:bg-gray-100 transition-colors duration-200 shadow-sm";
+  const labelClass = "block text-sm font-semibold text-gray-700 mb-1";
+  const inputClass =
+    "w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-300 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all";
 
+  const primaryButton =
+    "flex-1 py-3 rounded-xl cursor-pointer bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-all shadow-md text-center";
+
+  const secondaryButton =
+    "flex-1 py-3 rounded-xl cursor-pointer border border-gray-300 bg-white text-gray-800 font-semibold hover:bg-gray-100 transition-all shadow-sm text-center";
 
   return (
-    <div className="p-6 space-y-5 bg-white rounded-xl shadow-lg max-w-md mx-auto my-6">
-      <div>
-        <label htmlFor="amount-input" className={labelClass}>{t("amount")}</label>
-        <input 
-          id="amount-input"
-          value={amount} 
-          onChange={e=>setAmount(e.target.value === "" ? "" : Number(e.target.value))} 
-          type="number" 
-          className={inputClass}
-          aria-label={t("amount_label")} 
-          placeholder="e.g., 5000"
-        />
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="p-6 space-y-6 bg-white rounded-2xl shadow-sm w-full mx-auto my-6">
+      {/* Form fields */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Amount */}
         <div>
-          <label htmlFor="date-input" className={labelClass}>{t("date")}</label>
-          <input 
+          <label htmlFor="amount-input" className={labelClass}>
+            {t("amount")}
+          </label>
+          <input
+            id="amount-input"
+            value={amount}
+            onChange={(e) =>
+              setAmount(e.target.value === "" ? "" : Number(e.target.value))
+            }
+            type="number"
+            className={inputClass}
+            placeholder="e.g., 5000"
+            aria-label={t("amount_label")}
+          />
+        </div>
+
+        {/* Date */}
+        <div>
+          <label htmlFor="date-input" className={labelClass}>
+            {t("date")}
+          </label>
+          <input
             id="date-input"
-            type="date" 
-            value={date} 
-            onChange={e=>setDate(e.target.value)} 
-            className={inputClass} 
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className={inputClass}
             aria-label={t("date_label")}
           />
         </div>
+
+        {/* Category */}
         <div>
-          <label htmlFor="category-select" className={labelClass}>{t("category")}</label>
-          <select 
+          <label htmlFor="category-select" className={labelClass}>
+            {t("category")}
+          </label>
+          <select
             id="category-select"
-            value={category} 
-            onChange={e=>setCategory(e.target.value)} 
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
             className={inputClass}
             aria-label={t("category_label")}
           >
@@ -68,25 +103,52 @@ export default function ExpenseForm({ onOpenOCR, onStartVoice }: { onOpenOCR: ()
             <option value="misc">Misc</option>
           </select>
         </div>
+
+        {/* Vendor */}
+        <div>
+          <label htmlFor="vendor-input" className={labelClass}>
+            {t("vendor")}
+          </label>
+          <input
+            id="vendor-input"
+            value={vendor}
+            onChange={(e) => setVendor(e.target.value)}
+            className={inputClass}
+            aria-label={t("vendor_label")}
+            placeholder="e.g., Local Market"
+          />
+        </div>
       </div>
 
-      <div>
-        <label htmlFor="vendor-input" className={labelClass}>{t("vendor")}</label>
-        <input 
-          id="vendor-input"
-          value={vendor} 
-          onChange={e=>setVendor(e.target.value)} 
-          className={inputClass} 
-          aria-label={t("vendor_label")}
-          placeholder="e.g., Local Market"
-        />
-      </div>
+      {/* Buttons */}
+      <div className="flex flex-col sm:flex-col md:flex-row gap-4 pt-2">
+  <button
+    onClick={submitManual}
+    className={primaryButton}
+    aria-label={t("manual_add_label")}
+  >
+    <FaKeyboard className="inline mr-2 -mt-1" />
+    {t("manual_add")}
+  </button>
 
-      <div className="flex flex-col sm:flex-row gap-3 mt-5">
-        <button onClick={submitManual} className={buttonPrimaryClass} aria-label={t("manual_add_label")}>{t("manual_add")}</button>
-        <button onClick={onOpenOCR} className={buttonSecondaryClass} aria-label={t("scan_receipt_label")}>{t("scan_receipt")}</button>
-        <button onClick={onStartVoice} className={buttonSecondaryClass} aria-label={t("voice_add_label")}>{t("voice_add")}</button>
-      </div>
+  <button
+    onClick={onOpenOCR}
+    className={secondaryButton}
+    aria-label={t("scan_receipt_label")}
+  >
+    <FaCamera className="inline mr-2 -mt-1" />
+    {t("scan_receipt")}
+  </button>
+
+  <button
+    onClick={onStartVoice}
+    className={secondaryButton}
+    aria-label={t("voice_add_label")}
+  >
+    <FaMicrophone className="inline mr-2 -mt-1" />
+    {t("voice_add")}
+  </button>
+</div>
     </div>
   );
 }

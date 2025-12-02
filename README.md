@@ -40,6 +40,25 @@ The user interface has been significantly enhanced to provide a modern and profe
 -   **Modern Components**: All major components (Header, Expense Form, Ledger List, Modals, Toast) have been restyled with a clean layout, clear typography (Inter font family), and a professional color palette featuring a prominent primary blue.
 -   **Loading Indicators & Toasts**: Custom loading spinners are displayed during OCR processing, and toast notifications provide clear feedback for successful actions and errors.
 
+## Design Decisions
+
+- **Regex for Parsing OCR/Voice Input**: Used regex to extract amounts, dates, and vendors from OCR text and voice transcriptions because it allows flexible matching of various formats.
+- **IndexedDB via idb-keyval**: Chosen over localStorage to persist structured data offline and support larger entries efficiently.
+- **Tailwind CSS & Framer Motion**: Enables rapid styling with a responsive, mobile-first approach and smooth animations for better UX.
+- **PWA Offline Support**: Implemented service worker caching to allow offline usage, critical for low-connectivity regions.
+- **Accessibility (WCAG 2.1 AA)**: Used ARIA labels, keyboard navigation, and voice input support to make the app inclusive for low-literacy users.
+
+## Reflections
+One of the key challenges during development was ensuring accurate extraction of expense data via OCR and voice commands. Receipts can vary in layout, font, and clarity, while spoken input often includes colloquial expressions or numbers in words, making automatic parsing prone to errors. To address this, I implemented a combination of regex-based parsing and validation logic:
+
+-   **For OCR**: text extracted from receipts is processed to reliably detect numeric amounts, dates, and vendor names even in slightly inconsistent formats.
+-   **For Voice Input**: the speech transcript is normalized (e.g., converting "five thousand naira" to 5000) and matched against predefined patterns for categories and amounts.
+-   **Errors**: are gracefully handled with prompts, allowing users to manually confirm or correct extracted data before submission.
+
+This solution directly supports low-literacy users, who may struggle with manual entry, by providing automated, intuitive input methods. Users can simply speak or photograph their expenses, reducing reliance on reading or typing skills.
+
+From a compliance perspective, this approach aligns with NTAA Section 28: Books of Account, as it facilitates accurate recording of transactions in a clear, verifiable ledger format. Even if the user cannot read or write fluently, the system ensures that all expense entries are consistently logged and retrievable, supporting proper bookkeeping practices.
+
 ## Technical Stack
 
 -   **Frontend**: React 18+
@@ -68,6 +87,24 @@ The user interface has been significantly enhanced to provide a modern and profe
     npm run dev
     ```
     The application will typically be available at `http://localhost:5173`.
+
+    ## Live Demo
+
+Check out the live version deployed on [Vercel](https://wazobia-tax-ledger.vercel.app).
+
+## Screenshots
+
+**1. Expense Entry Form (Manual, OCR, Voice)**  
+![Expense Entry Form](/public/Screenshot%201.png)
+
+**2. Ledger Overview**  
+![Ledger Overview](/public/Screenshot%202.png)
+
+**3. Voice Entry**  
+![Offline Mode](/public/Screenshot%205.png)
+
+**4. Recipt Scanner**  
+![Offline Mode](/public/Screenshot%204.png)
 
 ## Project Structure
 

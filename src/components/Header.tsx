@@ -9,7 +9,7 @@ export default function Header(){
       <button 
         onClick={toggle} 
         aria-label={t("change_language_label")} 
-        className="px-4 py-2 rounded-full bg-[#1E40AF] hover:bg-opacity-80 transition-colors duration-200 text-sm font-medium border border-white border-opacity-30"
+        className="px-4 py-2 rounded-full cursor-pointer bg-[#1E40AF] hover:bg-opacity-80 transition-colors duration-200 text-sm font-medium border border-white border-opacity-30"
       >
         {i18n.language === "en" ? "EN" : "PG"}
       </button>

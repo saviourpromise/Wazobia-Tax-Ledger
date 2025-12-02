@@ -60,7 +60,7 @@ export default function OCRModal({ onFileSelected, onClose, loading }: Props) {
               className={buttonSecondaryClass}
               aria-label={t("cancel_button_label")}
             >
-              {t("cancel")}
+              {t("Cancel")}
             </button>
           </>
         )}

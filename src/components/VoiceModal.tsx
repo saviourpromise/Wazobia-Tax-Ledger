@@ -24,7 +24,7 @@ export default function VoiceModal({
 
 
   return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center p-4">
+    <div className="fixed z-50 inset-0 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 space-y-4 relative">
         <h2 className="text-xl font-bold text-gray-800 mb-4">{t("voice_entry_title")}</h2>
 
@@ -75,7 +75,7 @@ export default function VoiceModal({
               className={buttonPrimaryClass}
               aria-label={t("start_recording_button_label")}
             >
-              {t("start")}
+              {t("Start")}
             </button>
           ) : (
             <button
@@ -83,7 +83,7 @@ export default function VoiceModal({
               className={buttonDangerClass}
               aria-label={t("stop_recording_button_label")}
             >
-              {t("stop")}
+              {t("Stop")}
             </button>
           )}
 
@@ -92,7 +92,7 @@ export default function VoiceModal({
             className={buttonSecondaryClass}
             aria-label={t("close_button_label")}
           >
-            {t("close")}
+            {t("Close")}
           </button>
         </div>
       </div>

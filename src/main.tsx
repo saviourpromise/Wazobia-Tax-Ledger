@@ -8,15 +8,15 @@ import "./i18n";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <LedgerProvider>
-    <App />
+      <App />
     </LedgerProvider>
   </React.StrictMode>
 );
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/service-worker.ts").then(() => {
-      console.log("SW registered");
-    });
+    navigator.serviceWorker.register("/sw.js")
+      .then(() => console.log("Service Worker registered"))
+      .catch(err => console.error("SW registration failed:", err));
   });
 }
