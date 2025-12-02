@@ -1,8 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+
+/* body {
+  @apply bg-gray-50 text-gray-800 font-sans;
+} */
 
 /* small helpers for high contrast mode or large buttons */
 :root {
-  --accent: #0b5cff;
+  --accent: #0b5cff; /* A consistent accent color */
 }

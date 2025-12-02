@@ -2,7 +2,6 @@ const CACHE_NAME = "wazobia-v1";
 const urlsToCache = [
   "/",
   "/index.html",
-  // add compiled asset paths if known, but Workbox is recommended for prod
 ];
 
 self.addEventListener("install", (event: any) => {
@@ -13,9 +12,36 @@ self.addEventListener("install", (event: any) => {
 
 self.addEventListener("fetch", (event: any) => {
   event.respondWith(
-    caches.match(event.request).then(resp => resp || fetch(event.request))
+    caches.match(event.request).then(response => {
+      // Cache hit - return response
+      if (response) {
+        return response;
+      }
+
+      // No cache hit - fetch from network and cache it
+      return fetch(event.request).then(
+        response => {
+          // Check if we received a valid response
+          if (!response || response.status !== 200 || response.type !== "basic") {
+            return response;
+          }
+
+          // IMPORTANT: Clone the response. A response is a stream
+          // and can only be consumed once. We need to consume it once
+          // to send it to the browser and once to cache it.
+          const responseToCache = response.clone();
+
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache);
+          });
+
+          return response;
+        }
+      );
+    })
   );
 });
+
 self.addEventListener("activate", (event: any) => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
