@@ -75,7 +75,7 @@ From a compliance perspective, this approach aligns with NTAA Section 28: Books 
 
 1.  **Clone the repository:**
     ```bash
-    git clone [your-repo-link]
+    git clone 'https://github.com/saviourpromise/Wazobia-Tax-Ledger.git'
     cd Wazobia-Tax-Ledger
     ```
 2.  **Install dependencies:**
