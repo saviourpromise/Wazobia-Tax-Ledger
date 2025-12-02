@@ -1,0 +1,12 @@
+{
+  "title": "WazobiaTax Ledger",
+  "add_expense": "Add Expense",
+  "amount": "Amount (₦)",
+  "date": "Date",
+  "category": "Category",
+  "vendor": "Vendor",
+  "manual_add": "Manual Add",
+  "scan_receipt": "Scan Receipt",
+  "voice_add": "Voice Add",
+  "clear_all": "Clear All"
+}

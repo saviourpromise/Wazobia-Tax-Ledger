@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* small helpers for high contrast mode or large buttons */
+:root {
+  --accent: #0b5cff;
+}

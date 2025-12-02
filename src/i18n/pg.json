@@ -1,0 +1,12 @@
+{
+  "title": "WazobiaTax Ledger",
+  "add_expense": "Add Moni Wey Dem Spend",
+  "amount": "How Much (₦)",
+  "date": "Date",
+  "category": "Category",
+  "vendor": "Who You Buy From",
+  "manual_add": "Add Manual",
+  "scan_receipt": "Scan Receipt",
+  "voice_add": "Talk Add",
+  "clear_all": "Clear All"
+}
