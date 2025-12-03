@@ -1,7 +1,5 @@
-/// <reference lib="webworker" />
-export {};
-
 const CACHE_NAME = "wazobia-v1";
+
 const urlsToCache = [
   "/",
   "/index.html",
@@ -22,41 +20,41 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keyList) =>
       Promise.all(
-        keyList.map((key) => key !== CACHE_NAME ? caches.delete(key) : null)
+        keyList.map((key) => (key !== CACHE_NAME ? caches.delete(key) : null))
       )
     )
   );
   self.clients.claim();
 });
 
-// Fetch: cache-first
+// Fetch
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) return cachedResponse;
 
       return fetch(event.request)
-        .then((response) => {
+        .then((networkResponse) => {
           if (
-            !response ||
-            response.status !== 200 ||
-            response.type !== "basic"
+            !networkResponse ||
+            networkResponse.status !== 200 ||
+            networkResponse.type !== "basic"
           ) {
-            return response;
+            return networkResponse;
           }
 
-          const clone = response.clone();
+          const responseToCache = networkResponse.clone();
           caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, clone);
+            cache.put(event.request, responseToCache);
           });
 
-          return response;
+          return networkResponse;
         })
         .catch(() => {
           if (event.request.mode === "navigate") {
             return caches.match("/index.html");
           }
-          return new Response("Offline", { status: 503 });
+          return new Response("Offline");
         });
     })
   );
