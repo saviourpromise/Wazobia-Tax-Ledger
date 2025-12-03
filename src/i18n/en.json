@@ -15,5 +15,7 @@
   "voice_add": "Voice Add",
   "clear_all": "Clear All",
   "voice_entry_example": "Add expense five thousand naira for food.",
-  "listening_status": "Say Something"
+  "listening_status": "Say Something",
+  "processing_receipt": "Processing Receipt",
+  "ocr_progress_info": "Please wait..."
 }

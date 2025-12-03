@@ -13,5 +13,7 @@
   "voice_add": "Add With Your Voice",
   "clear_all": "Clear All",
   "voice_entry_example": "Add Moni wey dem spend five thousand naira for food.",
-  "listening_status": "Talk Something"
+  "listening_status": "Talk Something",
+  "processing_receipt": "We Dey Check The Receipt",
+  "ocr_progress_info": "Abeg wait..."
 }
